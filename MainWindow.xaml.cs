@@ -24,7 +24,7 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        string ver = "0.0.3";
+        string ver = "0.0.4";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
@@ -66,10 +66,18 @@ namespace De_World_Launcher
         public MainWindow()
         {
             InitializeComponent();
-            this.Title = "De:World Launcher " + ver;
-            VersionText.Text = "Current version\n" + ver;
-            setup_update(true);
 
+            this.Title = "De:World Launcher " + ver;
+
+            VersionText.Text = "Current version\n" + ver;
+
+            setup_update(true);
+    
+            if (File.Exists(fullPath + "\\DeWorld_old.exe"))
+            {
+                File.Delete(fullPath + "\\DeWorld_old.exe");
+            }
+        
         }
         private void Update_btn_Click(object sender, RoutedEventArgs e)
         {

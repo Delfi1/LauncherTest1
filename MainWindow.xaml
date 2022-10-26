@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="De:World Launcher" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF535353" Offset="1"/>
+                <GradientStop Color="#FFB7B7B7" Offset="0.597"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <TextBlock x:Name="VersionText" HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" Text="Current version" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
             <TextBlock.RenderTransform>
                 <TransformGroup>
