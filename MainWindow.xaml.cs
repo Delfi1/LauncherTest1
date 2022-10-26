@@ -67,7 +67,7 @@ namespace De_World_Launcher
         public MainWindow()
         {
             InitializeComponent();
-            VersionText.Text = "Current version \n" + ver;
+            VersionText.Text = "Current version\n" + ver;
             setup_update(true);
 
         }
