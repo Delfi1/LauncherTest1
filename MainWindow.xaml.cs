@@ -24,7 +24,7 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        string ver = "0.0.5";
+        string ver = "0.0.6";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
@@ -82,6 +82,11 @@ namespace De_World_Launcher
         private void Update_btn_Click(object sender, RoutedEventArgs e)
         {
             setup_update(false);
+        }
+
+        private void Launch_btn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
