@@ -1,0 +1,16 @@
+C:\Users\Delfi\source\repos\De_World Launcher\bin\Release\De_World Launcher.exe.config
+C:\Users\Delfi\source\repos\De_World Launcher\bin\Release\De_World Launcher.exe
+C:\Users\Delfi\source\repos\De_World Launcher\bin\Release\De_World Launcher.pdb
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.csproj.AssemblyReference.cache
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.csproj.SuggestedBindingRedirects.cache
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\MainWindow.g.cs
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\App.g.cs
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher_MarkupCompile.cache
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher_MarkupCompile.lref
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\MainWindow.baml
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.g.resources
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World_Launcher.Properties.Resources.resources
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.csproj.GenerateResource.cache
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.csproj.CoreCompileInputs.cache
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.exe
+C:\Users\Delfi\source\repos\De_World Launcher\obj\Release\De_World Launcher.pdb
