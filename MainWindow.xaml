@@ -39,7 +39,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <TextBlock x:Name="VersionGameText" HorizontalAlignment="Left" Height="20" Margin="690,364,0,0" TextWrapping="Wrap" Text="Game version" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
+        <TextBlock x:Name="VersionGameText" HorizontalAlignment="Right" Height="20" Margin="0,0,10,50" TextWrapping="Wrap" Text="Game version" VerticalAlignment="Bottom" Width="100" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

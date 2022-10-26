@@ -24,7 +24,7 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        string ver = "0.0.6";
+        string ver = "0.0.7";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
