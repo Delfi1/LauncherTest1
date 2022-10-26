@@ -24,13 +24,12 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        string ver = "0.0.1";
+        string ver = "0.0.3";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
         {
-            //string dwnl = client.DownloadString("https://raw.githubusercontent.com/Delfi1/DeWorld/master/version.txt");
-            string dwnl = ver;
+            string dwnl = client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
             
             if (dwnl.Contains(ver))
             {
@@ -44,7 +43,7 @@ namespace De_World_Launcher
                 if (!in_st) { MessageBox.Show("Версия приложения:" + ver + "\n" + "Версия приложения на сервере: " + dwnl, "Уведомление", MessageBoxButton.OK); }
                 MessageBox.Show("Обнаружена новая версия! Идет установка файлов...", "Update", MessageBoxButton.OK);
                 File.Move(fullPath + "\\DeWorld.exe", fullPath + "\\DeWorld_old.exe");
-                string requestString = @"https://github.com/Delfi1/DeWorld/blob/master/bin/Release/DelfiApp.exe?raw=true";
+                string requestString = @"https://github.com/Delfi1/De_Launcher/blob/master/bin/Release/De_World%20Launcher.exe?raw=true";
                 HttpClient httpClient = new HttpClient();
                 var GetTask = httpClient.GetAsync(requestString);
                 GetTask.Wait(1000); // WebCommsTimeout is in milliseconds
@@ -67,6 +66,7 @@ namespace De_World_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = "De:World Launcher " + ver;
             VersionText.Text = "Current version\n" + ver;
             setup_update(true);
 

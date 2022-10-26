@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:De_World_Launcher"
         mc:Ignorable="d"
-        Title="De:World Launcher v0.0.1" Height="450" Width="800">
+        Title="De:World Launcher" Height="450" Width="800">
     <Grid>
         <TextBlock x:Name="VersionText" HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" Text="Current version" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
             <TextBlock.RenderTransform>
@@ -22,6 +22,14 @@
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF00FF7E" Offset="1"/>
                     <GradientStop Color="#FF00FFA3" Offset="0"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button Content="Launch" HorizontalAlignment="Right" Height="35" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF00FFA3"/>
+                    <GradientStop Color="#FF19E2A8" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
