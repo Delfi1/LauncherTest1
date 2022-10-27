@@ -24,13 +24,13 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        string ver = "0.0.7";
+        string ver = "0.0.8";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
         {
             string dwnl = client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
-            
+
             if (dwnl.Contains(ver))
             {
                 if (!in_st)
@@ -41,26 +41,29 @@ namespace De_World_Launcher
             else
             {
                 if (!in_st) { MessageBox.Show("Версия приложения:" + ver + "\n" + "Версия приложения на сервере: " + dwnl, "Уведомление", MessageBoxButton.OK); }
-                MessageBox.Show("Обнаружена новая версия! Идет установка файлов...", "Update", MessageBoxButton.OK);
-                File.Move(fullPath + "\\DeWorld.exe", fullPath + "\\DeWorld_old.exe");
-                string requestString = @"https://github.com/Delfi1/De_Launcher/blob/master/bin/Release/De_World%20Launcher.exe?raw=true";
-                HttpClient httpClient = new HttpClient();
-                var GetTask = httpClient.GetAsync(requestString);
-                GetTask.Wait(1000); // WebCommsTimeout is in milliseconds
-
-                if (!GetTask.Result.IsSuccessStatusCode)
+                var result = MessageBox.Show("Обнаружена новая версия! Идет установка файлов...", "Update", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
                 {
-                    // write an error
-                    return;
-                }
+                    File.Move(fullPath + "\\DeWorld.exe", fullPath + "\\DeWorld_old.exe");
+                    string requestString = @"https://github.com/Delfi1/De_Launcher/blob/master/bin/Release/De_World%20Launcher.exe?raw=true";
+                    HttpClient httpClient = new HttpClient();
+                    var GetTask = httpClient.GetAsync(requestString);
+                    GetTask.Wait(1000); // WebCommsTimeout is in milliseconds
 
-                using (var fs = new FileStream(fullPath + "\\DeWorld.exe", FileMode.CreateNew))
-                {
-                    var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
-                    ResponseTask.Wait(1000);
+                    if (!GetTask.Result.IsSuccessStatusCode)
+                    {
+                        // write an error
+                        return;
+                    }
+
+                    using (var fs = new FileStream(fullPath + "\\DeWorld.exe", FileMode.CreateNew))
+                    {
+                        var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
+                        ResponseTask.Wait(1000);
+                    }
+                    System.Diagnostics.Process.Start(fullPath + "\\DeWorld.exe");
+                    Application.Current.Shutdown();
                 }
-                System.Diagnostics.Process.Start(fullPath + "\\DeWorld.exe");
-                System.Windows.Application.Current.Shutdown();
             }
         }
         public MainWindow()
