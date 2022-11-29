@@ -45,10 +45,10 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.1.3";
+        string ver = "0.1.4";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
-        void setup_update(bool in_st)
+        async void setup_update(bool in_st)
         {
             string dwnl = client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
 
@@ -83,6 +83,7 @@ namespace De_World_Launcher
                         ResponseTask.Wait(1000);
                     }
                     System.Diagnostics.Process.Start(fullPath + "\\DeWorld.exe");
+                    await Task.Delay(100);
                     Application.Current.Shutdown();
                 }
             }
