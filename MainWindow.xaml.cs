@@ -45,7 +45,7 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.1.8";
+        string ver = "0.1.9";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
