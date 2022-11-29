@@ -123,12 +123,12 @@ namespace De_World_Launcher
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
             }
             else{
-                if (client.DownloadString("").Contains(game_ver)){
+                if (client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt").Contains(game_ver)){
                     System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
                 }
                 else{
                     Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
-                    game_ver = client.DownloadString("");
+                    game_ver = client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
                     StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\Game\\ver.txt");
                     sw.Write(game_ver);
                     sw.Close();
