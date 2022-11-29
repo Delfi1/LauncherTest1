@@ -45,7 +45,7 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.1.7";
+        string ver = "0.1.8";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -119,6 +119,9 @@ namespace De_World_Launcher
 
         private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
+            StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
+            sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
+            sw2.Close();
             StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
             game_ver = rd.ReadLine();
             rd.Close();
@@ -126,10 +129,11 @@ namespace De_World_Launcher
             if (!File.Exists(fullPath + "\\Game\\Test1.exe")){
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.exe?raw=true", fullPath + "\\Game\\Test1.exe");
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
+                File.Delete(fullPath + "\\Game\\ver.txt");
                 System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
-                StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
-                sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
-                sw2.Close();
+                StreamWriter sw3 = new StreamWriter(fullPath + "\\Game\\ver.txt");
+                sw3.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
+                sw3.Close();
             }
             else{
                 if (game_ver.Contains(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"))){
@@ -138,9 +142,10 @@ namespace De_World_Launcher
                 else{
                     File.Delete(fullPath + "\\Game\\ver.txt");
                     Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
-                    StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
-                    sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
-                    sw2.Close();
+                    StreamWriter sw4 = new StreamWriter(fullPath + "\\Game\\ver.txt");
+                    sw4.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
+                    sw4.Close();
+                    System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
                 }
             }
         }
