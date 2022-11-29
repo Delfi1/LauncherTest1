@@ -24,7 +24,27 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        string ver = "0.0.8";
+        void Download_file(string requestString, string path)
+        {
+            HttpClient httpClient = new HttpClient();
+            var GetTask = httpClient.GetAsync(requestString);
+            GetTask.Wait(1000); // WebCommsTimeout is in milliseconds
+
+            if (!GetTask.Result.IsSuccessStatusCode)
+            {
+                // write an error
+                return;
+            }
+
+            using (var fs = new FileStream(path, FileMode.CreateNew))
+            {
+                var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
+                ResponseTask.Wait(1000);
+            }
+            System.Threading.Thread.Sleep(200);
+        }
+
+        string ver = "0.0.9";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
@@ -74,7 +94,7 @@ namespace De_World_Launcher
 
             VersionText.Text = "Current version\n" + ver;
 
-            setup_update(true);
+            //setup_update(true);
     
             if (File.Exists(fullPath + "\\DeWorld_old.exe"))
             {
@@ -89,7 +109,14 @@ namespace De_World_Launcher
 
         private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
-
+            if (File.Exists(fullPath + "\\Game\\Test1.exe")){
+                Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.exe?raw=true", fullPath + "\\Game\\Test1.exe");
+                Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
+            }
+            else{
+                //if (ver !=
+                System.Diagnostics.Process.Start("Test1.exe");
+            }
         }
     }
 }
