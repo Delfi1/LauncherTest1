@@ -45,7 +45,7 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.1.5";
+        string ver = "0.1.6";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -122,21 +122,27 @@ namespace De_World_Launcher
 
         private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
+            StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
+            game_ver = rd.ReadLine();
+            rd.Close();
             //MessageBox.Show("" + game_ver);
             if (!File.Exists(fullPath + "\\Game\\Test1.exe")){
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.exe?raw=true", fullPath + "\\Game\\Test1.exe");
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
+                System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
+                StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
+                sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
+                sw2.Close();
             }
             else{
-                if (client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt").Contains(game_ver)){
+                if (game_ver.Contains(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"))){
                     System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
                 }
                 else{
                     Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
-                    game_ver = client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt");
-                    StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\Game\\ver.txt");
-                    sw.Write(game_ver);
-                    sw.Close();
+                    StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
+                    sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
+                    sw2.Close();
                 }
             }
         }
