@@ -44,7 +44,8 @@ namespace De_World_Launcher
             System.Threading.Thread.Sleep(200);
         }
 
-        string ver = "0.1.0";
+        string game_ver;
+        string ver = "0.1.1";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
@@ -89,7 +90,14 @@ namespace De_World_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            if (!File.Exists(fullPath + "\\Game\\ver.txt")){
+                StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\Game\\ver.txt");
+                sw.Close();
+            }
 
+            StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
+            game_ver = rd.ReadLine();
+            rd.Close();
             this.Title = "De:World Launcher " + ver;
 
             VersionText.Text = "Current version\n" + ver;
@@ -109,13 +117,22 @@ namespace De_World_Launcher
 
         private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(fullPath + "\\Game\\Test1.exe")){
+            //MessageBox.Show("" + game_ver);
+            if (!File.Exists(fullPath + "\\Game\\Test1.exe")){
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.exe?raw=true", fullPath + "\\Game\\Test1.exe");
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
             }
             else{
-                //if (ver !=
-                System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
+                if (client.DownloadString("").Contains(game_ver)){
+                    System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
+                }
+                else{
+                    Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
+                    game_ver = client.DownloadString("");
+                    StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\Game\\ver.txt");
+                    sw.Write(game_ver);
+                    sw.Close();
+                }
             }
         }
     }
