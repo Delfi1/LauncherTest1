@@ -44,7 +44,7 @@ namespace De_World_Launcher
             System.Threading.Thread.Sleep(200);
         }
 
-        string ver = "0.0.9";
+        string ver = "0.1.0";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         void setup_update(bool in_st)
@@ -115,7 +115,7 @@ namespace De_World_Launcher
             }
             else{
                 //if (ver !=
-                System.Diagnostics.Process.Start("Test1.exe");
+                System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
             }
         }
     }
