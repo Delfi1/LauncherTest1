@@ -45,7 +45,7 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.1.9";
+        string ver = "0.2.0";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -140,6 +140,7 @@ namespace De_World_Launcher
                     System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
                 }
                 else{
+                    File.Delete(fullPath + "\\Game\\Test1.pck");
                     File.Delete(fullPath + "\\Game\\ver.txt");
                     Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
                     StreamWriter sw4 = new StreamWriter(fullPath + "\\Game\\ver.txt");
