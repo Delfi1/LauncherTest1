@@ -45,7 +45,7 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.1.4";
+        string ver = "0.1.5";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -91,6 +91,10 @@ namespace De_World_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            if(!Directory.Exists(fullPath + "\\Game")){
+                Directory.CreateDirectory(fullPath + "\\Game");
+            }
+
             if (!File.Exists(fullPath + "\\Game\\ver.txt")){
                 StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\Game\\ver.txt");
                 sw.Close();
