@@ -24,11 +24,11 @@ namespace De_World_Launcher
 
     public partial class MainWindow : Window
     {
-        void Download_file(string requestString, string path)
+        async void Download_file(string requestString, string path)
         {
             HttpClient httpClient = new HttpClient();
             var GetTask = httpClient.GetAsync(requestString);
-            GetTask.Wait(1000); // WebCommsTimeout is in milliseconds
+            await Task.Delay(1000); // WebCommsTimeout is in milliseconds
 
             if (!GetTask.Result.IsSuccessStatusCode)
             {
@@ -39,13 +39,24 @@ namespace De_World_Launcher
             using (var fs = new FileStream(path, FileMode.CreateNew))
             {
                 var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
-                ResponseTask.Wait(1000);
+                await Task.Delay(1000);
             }
-            System.Threading.Thread.Sleep(200);
+            await Task.Delay(200);
+        }
+
+        async void Update_UI(){
+            while (true)
+            {
+                await Task.Delay(10000);
+                StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
+                game_ver = rd.ReadLine();
+                rd.Close();
+                VersionGameText.Text = "Game version:\n" + game_ver;
+            }
         }
 
         string game_ver;
-        string ver = "0.2.1";
+        string ver = "0.2.2";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -88,6 +99,8 @@ namespace De_World_Launcher
                 }
             }
         }
+
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -102,10 +115,7 @@ namespace De_World_Launcher
                 VersionGameText.Text = "\nDownload game:";
             }
             else{
-                StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
-                game_ver = rd.ReadLine();
-                rd.Close();
-                VersionGameText.Text = "Game version:\n" + game_ver;
+                Update_UI();
             }
 
             this.Title = "De:World Launcher " + ver;
