@@ -45,7 +45,7 @@ namespace De_World_Launcher
         }
 
         string game_ver;
-        string ver = "0.2.0";
+        string ver = "0.2.1";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -91,6 +91,7 @@ namespace De_World_Launcher
         public MainWindow()
         {
             InitializeComponent();
+
             if(!Directory.Exists(fullPath + "\\Game")){
                 Directory.CreateDirectory(fullPath + "\\Game");
             }
@@ -98,6 +99,13 @@ namespace De_World_Launcher
             if (!File.Exists(fullPath + "\\Game\\ver.txt")){
                 StreamWriter sw = new StreamWriter(Environment.CurrentDirectory + "\\Game\\ver.txt");
                 sw.Close();
+                VersionGameText.Text = "\nDownload game:";
+            }
+            else{
+                StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
+                game_ver = rd.ReadLine();
+                rd.Close();
+                VersionGameText.Text = "Game version:\n" + game_ver;
             }
 
             this.Title = "De:World Launcher " + ver;
