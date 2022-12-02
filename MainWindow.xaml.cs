@@ -44,22 +44,21 @@ namespace De_World_Launcher
             await Task.Delay(200);
         }
 
-        async void Update_UI(){
+        string game_ver;
+        void Update_UI(){
             StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
             game_ver = rd.ReadLine();
             rd.Close();
             VersionGameText.Text = "Game version:\n" + game_ver;
         }
 
-        string game_ver;
-        string ver = "0.2.3";
+        string ver = "0.2.4";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
         {
             Uri SUi = new Uri("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
             string dwnl = client.DownloadString(SUi);
-
             if (dwnl.Contains(ver))
             {
                 if (!in_st)
@@ -69,7 +68,6 @@ namespace De_World_Launcher
             }
             else
             {
-                await Task.Delay(100);
                 if (!in_st) { MessageBox.Show("Версия приложения:" + ver + "\n" + "Версия приложения на сервере: " + dwnl, "Уведомление", MessageBoxButton.OK); }
                 var result = MessageBox.Show("Обнаружена новая версия! Установить?", "Update", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
@@ -83,8 +81,12 @@ namespace De_World_Launcher
                 }
             }
         }
-
         
+        async void Check(){
+            setup_update(true);
+            await Task.Delay(60000);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -105,24 +107,20 @@ namespace De_World_Launcher
             this.Title = "De:World Launcher " + ver;
 
             VersionText.Text = "Current version\n" + ver;
-
-            //setup_update(true);
     
             if (File.Exists(fullPath + "\\DeWorld_old.exe"))
             {
                 File.Delete(fullPath + "\\DeWorld_old.exe");
             }
-        
+            Check();
         }
-        async private void Update_btn_Click(object sender, RoutedEventArgs e)
+        private void Update_btn_Click(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(100);
             setup_update(false);
         }
 
-        async private void Launch_btn_Click(object sender, RoutedEventArgs e)
+        private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(100);
             StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
             sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
             sw2.Close();
