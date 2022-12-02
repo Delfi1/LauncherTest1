@@ -52,7 +52,7 @@ namespace De_World_Launcher
             VersionGameText.Text = "Game version:\n" + game_ver;
         }
 
-        string ver = "0.2.6";
+        string ver = "0.2.7";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -119,7 +119,7 @@ namespace De_World_Launcher
             setup_update(false);
         }
 
-        private void Launch_btn_Click(object sender, RoutedEventArgs e)
+        async private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
             StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
             sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
@@ -129,6 +129,7 @@ namespace De_World_Launcher
             if (!File.Exists(fullPath + "\\Game\\Test1.exe")){
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.exe?raw=true", fullPath + "\\Game\\Test1.exe");
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.pck?raw=true", fullPath + "\\Game\\Test1.pck");
+                await Task.Delay(10000);
                 File.Delete(fullPath + "\\Game\\ver.txt");
                 System.Diagnostics.Process.Start(fullPath + "\\Game\\Test1.exe");
                 StreamWriter sw3 = new StreamWriter(fullPath + "\\Game\\ver.txt");
