@@ -45,23 +45,20 @@ namespace De_World_Launcher
         }
 
         async void Update_UI(){
-            while (true)
-            {
-                await Task.Delay(10000);
-                StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
-                game_ver = rd.ReadLine();
-                rd.Close();
-                VersionGameText.Text = "Game version:\n" + game_ver;
-            }
+            StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
+            game_ver = rd.ReadLine();
+            rd.Close();
+            VersionGameText.Text = "Game version:\n" + game_ver;
         }
 
         string game_ver;
-        string ver = "0.2.2";
+        string ver = "0.2.3";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
         {
-            string dwnl = client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
+            Uri SUi = new Uri("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/version.txt");
+            string dwnl = client.DownloadString(SUi);
 
             if (dwnl.Contains(ver))
             {
@@ -72,27 +69,14 @@ namespace De_World_Launcher
             }
             else
             {
+                await Task.Delay(100);
                 if (!in_st) { MessageBox.Show("Версия приложения:" + ver + "\n" + "Версия приложения на сервере: " + dwnl, "Уведомление", MessageBoxButton.OK); }
-                var result = MessageBox.Show("Обнаружена новая версия! Идет установка файлов...", "Update", MessageBoxButton.OKCancel);
-                if (result == MessageBoxResult.OK)
+                var result = MessageBox.Show("Обнаружена новая версия! Установить?", "Update", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
                 {
                     File.Move(fullPath + "\\DeWorld.exe", fullPath + "\\DeWorld_old.exe");
                     string requestString = @"https://github.com/Delfi1/De_Launcher/blob/master/bin/Release/De_World%20Launcher.exe?raw=true";
-                    HttpClient httpClient = new HttpClient();
-                    var GetTask = httpClient.GetAsync(requestString);
-                    GetTask.Wait(1000); // WebCommsTimeout is in milliseconds
-
-                    if (!GetTask.Result.IsSuccessStatusCode)
-                    {
-                        // write an error
-                        return;
-                    }
-
-                    using (var fs = new FileStream(fullPath + "\\DeWorld.exe", FileMode.CreateNew))
-                    {
-                        var ResponseTask = GetTask.Result.Content.CopyToAsync(fs);
-                        ResponseTask.Wait(1000);
-                    }
+                    Download_file(requestString, fullPath + "\\DeWorld.exe");
                     System.Diagnostics.Process.Start(fullPath + "\\DeWorld.exe");
                     await Task.Delay(100);
                     Application.Current.Shutdown();
@@ -130,19 +114,19 @@ namespace De_World_Launcher
             }
         
         }
-        private void Update_btn_Click(object sender, RoutedEventArgs e)
+        async private void Update_btn_Click(object sender, RoutedEventArgs e)
         {
+            await Task.Delay(100);
             setup_update(false);
         }
 
-        private void Launch_btn_Click(object sender, RoutedEventArgs e)
+        async private void Launch_btn_Click(object sender, RoutedEventArgs e)
         {
+            await Task.Delay(100);
             StreamWriter sw2 = new StreamWriter(fullPath + "\\Game\\ver.txt");
             sw2.WriteLine(client.DownloadString("https://raw.githubusercontent.com/Delfi1/De_Launcher/master/Game.txt"));
             sw2.Close();
-            StreamReader rd = new StreamReader(Environment.CurrentDirectory + "\\Game\\ver.txt");
-            game_ver = rd.ReadLine();
-            rd.Close();
+            Update_UI();
             //MessageBox.Show("" + game_ver);
             if (!File.Exists(fullPath + "\\Game\\Test1.exe")){
                 Download_file("https://github.com/Delfi1/Godot_Test/blob/master/Export/Test1.exe?raw=true", fullPath + "\\Game\\Test1.exe");
