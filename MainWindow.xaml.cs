@@ -52,7 +52,7 @@ namespace De_World_Launcher
             VersionGameText.Text = "Game version:\n" + game_ver;
         }
 
-        string ver = "0.2.4";
+        string ver = "0.2.5";
         WebClient client = new WebClient();
         string fullPath = Environment.CurrentDirectory;
         async void setup_update(bool in_st)
@@ -83,8 +83,8 @@ namespace De_World_Launcher
         }
         
         async void Check(){
+            await Task.Delay(20000);
             setup_update(true);
-            await Task.Delay(60000);
         }
 
         public MainWindow()
